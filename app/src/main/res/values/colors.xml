@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Retro Calculator Colors -->
+    <color name="cream">#F4EFE7</color>
+    <color name="creamDark">#E9E1D6</color>
+    <color name="oliveDisplay">#C7CFB0</color>
+    <color name="keyTopLight">#FFF9F1</color>
+    <color name="keyTop">#F7EBDD</color>
+    <color name="keyShadow">#D9CFC2</color>
+    <color name="accentOrange">#F39B3C</color>
+    <color name="accentOrangeDark">#E48727</color>
+    <color name="burntOrange">#C95F2C</color>
+    <color name="textDark">#1F1F1F</color>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.RetroCalc" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">#F39B3C</item>
+        <item name="colorPrimaryDark">#E48727</item>
+        <item name="colorAccent">#C95F2C</item>
+        <item name="android:colorBackground">#F4EFE7</item>
+        <item name="android:textColorPrimary">#1F1F1F</item>
+        <item name="android:textColorSecondary">#1F1F1F</item>
+    </style>
+
+    <style name="Theme.RetroCalc" parent="Base.Theme.RetroCalc" />
+    
+    <!-- Launch screen theme -->
+    <style name="Theme.RetroCalc.Launch" parent="Theme.RetroCalc">
+        <item name="android:windowBackground">@drawable/launch_screen_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+</resources>
