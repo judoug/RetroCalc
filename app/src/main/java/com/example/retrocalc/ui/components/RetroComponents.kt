@@ -78,7 +78,10 @@ fun DisplayWindow(
             if (!tapeText.isNullOrEmpty()) {
                 Text(
                     text = tapeText,
-                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = RetroTokens.tapeTextSize),
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        fontSize = RetroTokens.tapeTextSize,
+                        fontWeight = FontWeight.Bold
+                    ),
                     color = textDark.copy(alpha = 0.7f),
                     textAlign = TextAlign.End,
                     modifier = Modifier.fillMaxWidth()
@@ -87,7 +90,10 @@ fun DisplayWindow(
             }
             Text(
                 text = mainText,
-                style = MaterialTheme.typography.displayLarge.copy(fontSize = RetroTokens.displayTextSize),
+                style = MaterialTheme.typography.displayLarge.copy(
+                    fontSize = RetroTokens.displayTextSize,
+                    fontWeight = FontWeight.ExtraBold
+                ),
                 color = textDark,
                 textAlign = TextAlign.End,
                 modifier = Modifier.fillMaxWidth()
