@@ -20,6 +20,7 @@
             android:resizeableActivity="false"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.RetroCalc">
+            <meta-data android:name="com.oculus.vrshell.supports_free_resizing" android:value="false" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
