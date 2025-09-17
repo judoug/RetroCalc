@@ -140,7 +140,7 @@ fun RetroKey(
             )
             .border(
                 width = 7.dp,
-                color = creamButtonDark.copy(alpha = 0.4f),
+                color = creamButtonDark.copy(alpha = 0.8f),
                 shape = CircleShape
             )
             .clickable(
@@ -418,7 +418,7 @@ fun WideRetroKey(
             .background(creamButton)
             .border(
                 width = 7.dp,
-                color = creamButtonDark.copy(alpha = 0.4f),
+                color = creamButtonDark.copy(alpha = 0.8f),
                 shape = RoundedCornerShape(RetroTokens.keyCornerRadius)
             )
             .clickable(

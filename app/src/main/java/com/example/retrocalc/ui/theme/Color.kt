@@ -13,6 +13,7 @@ val peachButton = Color(0xFFFFB366)  // Warm peach for primary buttons
 val peachButtonDark = Color(0xFFE6994D)  // Darker peach for shadows
 val creamButton = Color(0xFFFFF2E6)  // Light cream for number buttons
 val creamButtonDark = Color(0xFFE6D4C0)  // Darker cream for shadows
+val appBackground = Color(0xFFF5E6D3)  // Background color between cream button and border
 
 // Highlighted buttons (C button)
 val redOrange = Color(0xFFC0392B)  // Darker red for C button
@@ -34,7 +35,7 @@ val RetroLightColorScheme = androidx.compose.material3.lightColorScheme(
     onSecondary = Color.White,
     tertiary = creamButtonDark,
     onTertiary = textDark,
-    background = cream,
+    background = appBackground,
     onBackground = textDark,
     surface = creamButton,
     onSurface = textDark,
