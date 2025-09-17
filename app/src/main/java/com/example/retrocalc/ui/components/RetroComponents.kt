@@ -59,11 +59,26 @@ fun DisplayWindow(
             .fillMaxWidth()
             .height(180.dp)  // Fixed height for equal padding
             .padding(horizontal = RetroTokens.displayPadding)
+            .shadow(
+                elevation = 8.dp,
+                shape = RoundedCornerShape(RetroTokens.displayCornerRadius),
+                ambientColor = keyShadow.copy(alpha = 0.3f),
+                spotColor = keyShadow.copy(alpha = 0.5f)
+            )
             .clip(RoundedCornerShape(RetroTokens.displayCornerRadius))
-            .background(oliveDisplay)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        oliveDisplay.copy(alpha = 0.9f),
+                        oliveDisplay.copy(alpha = 0.7f)
+                    ),
+                    startY = 0f,
+                    endY = Float.POSITIVE_INFINITY
+                )
+            )
             .border(
-                width = 3.dp,
-                color = textDark,
+                width = 2.dp,
+                color = keyShadow.copy(alpha = 0.4f),
                 shape = RoundedCornerShape(RetroTokens.displayCornerRadius)
             )
             .padding(RetroTokens.displayPadding)
@@ -115,7 +130,7 @@ fun RetroKey(
     )
     
     val shadowElevation by animateFloatAsState(
-        targetValue = if (isPressedState || isPressed) 1f else 4f,
+        targetValue = if (isPressedState || isPressed) 2f else 8f,
         animationSpec = tween(100),
         label = "shadowElevation"
     )
@@ -130,20 +145,23 @@ fun RetroKey(
             .shadow(
                 elevation = shadowElevation.dp,
                 shape = CircleShape,
-                ambientColor = keyShadow,
-                spotColor = keyShadow
+                ambientColor = keyShadow.copy(alpha = 0.4f),
+                spotColor = keyShadow.copy(alpha = 0.6f)
             )
             .clip(CircleShape)
             .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(keyTopLight, keyTop),
-                    startY = 0f,
-                    endY = Float.POSITIVE_INFINITY
+                brush = Brush.radialGradient(
+                    colors = listOf(
+                        keyTopLight.copy(alpha = 1.0f),
+                        keyTop.copy(alpha = 0.8f),
+                        keyShadow.copy(alpha = 0.3f)
+                    ),
+                    radius = RetroTokens.keySize.value * 0.8f
                 )
             )
             .border(
-                width = 1.dp,
-                color = keyShadow.copy(alpha = 0.3f),
+                width = 1.5.dp,
+                color = keyShadow.copy(alpha = 0.5f),
                 shape = CircleShape
             )
             .clickable(
@@ -215,7 +233,7 @@ fun RetroOpKey(
     )
     
     val shadowElevation by animateFloatAsState(
-        targetValue = if (isPressedState || isPressed) 1f else 4f,
+        targetValue = if (isPressedState || isPressed) 2f else 8f,
         animationSpec = tween(100),
         label = "shadowElevation"
     )
@@ -230,20 +248,23 @@ fun RetroOpKey(
             .shadow(
                 elevation = shadowElevation.dp,
                 shape = CircleShape,
-                ambientColor = accentOrangeDark,
-                spotColor = accentOrangeDark
+                ambientColor = burntOrange.copy(alpha = 0.4f),
+                spotColor = burntOrange.copy(alpha = 0.6f)
             )
             .clip(CircleShape)
             .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(accentOrange, accentOrangeDark),
-                    startY = 0f,
-                    endY = Float.POSITIVE_INFINITY
+                brush = Brush.radialGradient(
+                    colors = listOf(
+                        accentOrange.copy(alpha = 1.0f),
+                        accentOrangeDark.copy(alpha = 0.9f),
+                        burntOrange.copy(alpha = 0.7f)
+                    ),
+                    radius = RetroTokens.keySize.value * 0.8f
                 )
             )
             .border(
-                width = 1.dp,
-                color = burntOrange.copy(alpha = 0.3f),
+                width = 1.5.dp,
+                color = burntOrange.copy(alpha = 0.5f),
                 shape = CircleShape
             )
             .clickable(
@@ -315,7 +336,7 @@ fun WideRetroKey(
     )
     
     val shadowElevation by animateFloatAsState(
-        targetValue = if (isPressedState || isPressed) 1f else 4f,
+        targetValue = if (isPressedState || isPressed) 2f else 8f,
         animationSpec = tween(100),
         label = "shadowElevation"
     )
@@ -333,20 +354,23 @@ fun WideRetroKey(
             .shadow(
                 elevation = shadowElevation.dp,
                 shape = RoundedCornerShape(RetroTokens.keyCornerRadius),
-                ambientColor = keyShadow,
-                spotColor = keyShadow
+                ambientColor = keyShadow.copy(alpha = 0.4f),
+                spotColor = keyShadow.copy(alpha = 0.6f)
             )
             .clip(RoundedCornerShape(RetroTokens.keyCornerRadius))
             .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(keyTopLight, keyTop),
-                    startY = 0f,
-                    endY = Float.POSITIVE_INFINITY
+                brush = Brush.radialGradient(
+                    colors = listOf(
+                        keyTopLight.copy(alpha = 1.0f),
+                        keyTop.copy(alpha = 0.8f),
+                        keyShadow.copy(alpha = 0.3f)
+                    ),
+                    radius = RetroTokens.keySize.value * 1.2f
                 )
             )
             .border(
-                width = 1.dp,
-                color = keyShadow.copy(alpha = 0.3f),
+                width = 1.5.dp,
+                color = keyShadow.copy(alpha = 0.5f),
                 shape = RoundedCornerShape(RetroTokens.keyCornerRadius)
             )
             .clickable(
