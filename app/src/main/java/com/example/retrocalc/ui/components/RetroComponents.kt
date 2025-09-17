@@ -57,6 +57,7 @@ fun DisplayWindow(
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .height(180.dp)  // Fixed height for equal padding
             .padding(horizontal = RetroTokens.displayPadding)
             .clip(RoundedCornerShape(RetroTokens.displayCornerRadius))
             .background(oliveDisplay)
@@ -68,8 +69,11 @@ fun DisplayWindow(
             .padding(RetroTokens.displayPadding)
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.End
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.Bottom
         ) {
             if (!tapeText.isNullOrEmpty()) {
                 Text(

@@ -12,12 +12,4 @@
     </style>
 
     <style name="Theme.RetroCalc" parent="Base.Theme.RetroCalc" />
-    
-    <!-- Launch screen theme -->
-    <style name="Theme.RetroCalc.Launch" parent="Theme.RetroCalc">
-        <item name="android:windowBackground">@drawable/launch_screen_background</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
 </resources>

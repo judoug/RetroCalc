@@ -19,10 +19,11 @@ fun CalculatorScreen() {
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        // Display
+        // Display - Sized to have equal padding above and below
         DisplayWindow(
+            modifier = Modifier.fillMaxWidth(),
             mainText = state.display,
             tapeText = CalcEngine.getTapeText(state)
         )
