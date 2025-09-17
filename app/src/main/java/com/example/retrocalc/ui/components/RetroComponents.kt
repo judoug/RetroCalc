@@ -59,26 +59,11 @@ fun DisplayWindow(
             .fillMaxWidth()
             .height(180.dp)  // Fixed height for equal padding
             .padding(horizontal = RetroTokens.displayPadding)
-            .shadow(
-                elevation = 8.dp,
-                shape = RoundedCornerShape(RetroTokens.displayCornerRadius),
-                ambientColor = keyShadow.copy(alpha = 0.3f),
-                spotColor = keyShadow.copy(alpha = 0.5f)
-            )
             .clip(RoundedCornerShape(RetroTokens.displayCornerRadius))
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        oliveDisplay.copy(alpha = 0.9f),
-                        oliveDisplay.copy(alpha = 0.7f)
-                    ),
-                    startY = 0f,
-                    endY = Float.POSITIVE_INFINITY
-                )
-            )
+            .background(oliveDisplay)
             .border(
-                width = 2.dp,
-                color = keyShadow.copy(alpha = 0.4f),
+                width = 10.dp,
+                color = textDark,
                 shape = RoundedCornerShape(RetroTokens.displayCornerRadius)
             )
             .padding(RetroTokens.displayPadding)
@@ -129,39 +114,33 @@ fun RetroKey(
         label = "pressScale"
     )
     
-    val shadowElevation by animateFloatAsState(
-        targetValue = if (isPressedState || isPressed) 2f else 8f,
-        animationSpec = tween(100),
-        label = "shadowElevation"
-    )
-    
     Box(
         modifier = modifier
             .size(RetroTokens.keySize)
             .graphicsLayer {
                 scaleX = pressScale
                 scaleY = pressScale
+                translationY = if (isPressedState || isPressed) 2f else 0f
             }
             .shadow(
-                elevation = shadowElevation.dp,
+                elevation = if (isPressedState || isPressed) 2.dp else 4.dp,
                 shape = CircleShape,
-                ambientColor = keyShadow.copy(alpha = 0.4f),
-                spotColor = keyShadow.copy(alpha = 0.6f)
+                ambientColor = creamButtonDark.copy(alpha = 0.3f),
+                spotColor = creamButtonDark.copy(alpha = 0.5f)
             )
             .clip(CircleShape)
             .background(
                 brush = Brush.radialGradient(
                     colors = listOf(
-                        keyTopLight.copy(alpha = 1.0f),
-                        keyTop.copy(alpha = 0.8f),
-                        keyShadow.copy(alpha = 0.3f)
+                        creamButton.copy(alpha = 1.0f),
+                        creamButton.copy(alpha = 0.9f)
                     ),
-                    radius = RetroTokens.keySize.value * 0.8f
+                    radius = RetroTokens.keySize.value * 0.7f
                 )
             )
             .border(
-                width = 1.5.dp,
-                color = keyShadow.copy(alpha = 0.5f),
+                width = 7.dp,
+                color = creamButtonDark.copy(alpha = 0.4f),
                 shape = CircleShape
             )
             .clickable(
@@ -184,7 +163,7 @@ fun RetroKey(
                     brush = Brush.radialGradient(
                         colors = listOf(
                             Color.Transparent,
-                            keyShadow.copy(alpha = 0.1f)
+                            creamButtonDark.copy(alpha = 0.1f)
                         ),
                         radius = RetroTokens.keySize.value
                     )
@@ -193,9 +172,12 @@ fun RetroKey(
         
         Text(
             text = text,
-            style = MaterialTheme.typography.headlineLarge,
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            ),
             color = textDark,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Bold
         )
         
         // Focus ring - Quest optimized
@@ -206,7 +188,91 @@ fun RetroKey(
                     .clip(CircleShape)
                     .border(
                         width = 3.dp,
-                        color = accentOrange,
+                        color = operatorOrange,
+                        shape = CircleShape
+                    )
+            )
+        }
+    }
+}
+
+@Composable
+fun RetroHighlightKey(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    contentDescription: String = text,
+    isPressed: Boolean = false
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressedState by interactionSource.collectIsPressedAsState()
+    val isFocused by interactionSource.collectIsFocusedAsState()
+    
+    val pressScale by animateFloatAsState(
+        targetValue = if (isPressedState || isPressed) 0.95f else 1f,
+        animationSpec = tween(100),
+        label = "pressScale"
+    )
+    
+    Box(
+        modifier = modifier
+            .size(RetroTokens.keySize)
+            .graphicsLayer {
+                scaleX = pressScale
+                scaleY = pressScale
+                translationY = if (isPressedState || isPressed) 2f else 0f
+            }
+            .shadow(
+                elevation = if (isPressedState || isPressed) 2.dp else 4.dp,
+                shape = CircleShape,
+                ambientColor = redOrangeDark.copy(alpha = 0.3f),
+                spotColor = redOrangeDark.copy(alpha = 0.5f)
+            )
+            .clip(CircleShape)
+            .background(
+                brush = Brush.radialGradient(
+                    colors = listOf(
+                        redOrange.copy(alpha = 1.0f),
+                        redOrange.copy(alpha = 0.9f)
+                    ),
+                    radius = RetroTokens.keySize.value * 0.7f
+                )
+            )
+            .border(
+                width = 7.dp,
+                color = redOrangeDark.copy(alpha = 0.4f),
+                shape = CircleShape
+            )
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) { onClick() }
+            .focusRequester(FocusRequester())
+            .focusable()
+            .semantics {
+                this.contentDescription = contentDescription
+            },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            ),
+            color = Color.White,
+            fontWeight = FontWeight.Bold
+        )
+        
+        // Focus ring - Quest optimized
+        if (isFocused) {
+            Box(
+                modifier = Modifier
+                    .size(RetroTokens.keySize + RetroTokens.focusRingSize)
+                    .clip(CircleShape)
+                    .border(
+                        width = 3.dp,
+                        color = Color.White,
                         shape = CircleShape
                     )
             )
@@ -232,39 +298,33 @@ fun RetroOpKey(
         label = "pressScale"
     )
     
-    val shadowElevation by animateFloatAsState(
-        targetValue = if (isPressedState || isPressed) 2f else 8f,
-        animationSpec = tween(100),
-        label = "shadowElevation"
-    )
-    
     Box(
         modifier = modifier
             .size(RetroTokens.keySize)
             .graphicsLayer {
                 scaleX = pressScale
                 scaleY = pressScale
+                translationY = if (isPressedState || isPressed) 2f else 0f
             }
             .shadow(
-                elevation = shadowElevation.dp,
+                elevation = if (isPressedState || isPressed) 2.dp else 4.dp,
                 shape = CircleShape,
-                ambientColor = burntOrange.copy(alpha = 0.4f),
-                spotColor = burntOrange.copy(alpha = 0.6f)
+                ambientColor = operatorOrangeDark.copy(alpha = 0.3f),
+                spotColor = operatorOrangeDark.copy(alpha = 0.5f)
             )
             .clip(CircleShape)
             .background(
                 brush = Brush.radialGradient(
                     colors = listOf(
-                        accentOrange.copy(alpha = 1.0f),
-                        accentOrangeDark.copy(alpha = 0.9f),
-                        burntOrange.copy(alpha = 0.7f)
+                        operatorOrange.copy(alpha = 1.0f),
+                        operatorOrange.copy(alpha = 0.9f)
                     ),
-                    radius = RetroTokens.keySize.value * 0.8f
+                    radius = RetroTokens.keySize.value * 0.7f
                 )
             )
             .border(
-                width = 1.5.dp,
-                color = burntOrange.copy(alpha = 0.5f),
+                width = 7.dp,
+                color = operatorOrangeDark.copy(alpha = 0.4f),
                 shape = CircleShape
             )
             .clickable(
@@ -287,7 +347,7 @@ fun RetroOpKey(
                     brush = Brush.radialGradient(
                         colors = listOf(
                             Color.Transparent,
-                            burntOrange.copy(alpha = 0.2f)
+                            operatorOrangeDark.copy(alpha = 0.2f)
                         ),
                         radius = RetroTokens.keySize.value
                     )
@@ -296,7 +356,10 @@ fun RetroOpKey(
         
         Text(
             text = text,
-            style = MaterialTheme.typography.headlineLarge,
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            ),
             color = Color.White,
             fontWeight = FontWeight.Bold
         )
@@ -335,12 +398,6 @@ fun WideRetroKey(
         label = "pressScale"
     )
     
-    val shadowElevation by animateFloatAsState(
-        targetValue = if (isPressedState || isPressed) 2f else 8f,
-        animationSpec = tween(100),
-        label = "shadowElevation"
-    )
-    
     val wideKeyWidth = RetroTokens.keySize * 2 + RetroTokens.keySpacing
     
     Box(
@@ -352,25 +409,16 @@ fun WideRetroKey(
                 scaleY = pressScale
             }
             .shadow(
-                elevation = shadowElevation.dp,
+                elevation = 5.dp,
                 shape = RoundedCornerShape(RetroTokens.keyCornerRadius),
-                ambientColor = keyShadow.copy(alpha = 0.4f),
-                spotColor = keyShadow.copy(alpha = 0.6f)
+                ambientColor = creamButtonDark,
+                spotColor = creamButtonDark
             )
             .clip(RoundedCornerShape(RetroTokens.keyCornerRadius))
-            .background(
-                brush = Brush.radialGradient(
-                    colors = listOf(
-                        keyTopLight.copy(alpha = 1.0f),
-                        keyTop.copy(alpha = 0.8f),
-                        keyShadow.copy(alpha = 0.3f)
-                    ),
-                    radius = RetroTokens.keySize.value * 1.2f
-                )
-            )
+            .background(creamButton)
             .border(
-                width = 1.5.dp,
-                color = keyShadow.copy(alpha = 0.5f),
+                width = 7.dp,
+                color = creamButtonDark.copy(alpha = 0.4f),
                 shape = RoundedCornerShape(RetroTokens.keyCornerRadius)
             )
             .clickable(
@@ -394,7 +442,7 @@ fun WideRetroKey(
                     brush = Brush.radialGradient(
                         colors = listOf(
                             Color.Transparent,
-                            keyShadow.copy(alpha = 0.1f)
+                            creamButtonDark.copy(alpha = 0.1f)
                         ),
                         radius = RetroTokens.keySize.value
                     )
@@ -403,9 +451,12 @@ fun WideRetroKey(
         
         Text(
             text = text,
-            style = MaterialTheme.typography.headlineLarge,
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            ),
             color = textDark,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Bold
         )
         
         // Focus ring - Quest optimized
@@ -417,7 +468,7 @@ fun WideRetroKey(
                     .clip(RoundedCornerShape(RetroTokens.keyCornerRadius))
                     .border(
                         width = 3.dp,
-                        color = accentOrange,
+                        color = operatorOrange,
                         shape = RoundedCornerShape(RetroTokens.keyCornerRadius)
                     )
             )

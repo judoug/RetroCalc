@@ -36,15 +36,15 @@ fun CalculatorScreen() {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(RetroTokens.keySpacing)
             ) {
-                RetroKey("C", onClick = { 
+                RetroHighlightKey("C", onClick = { 
                     haptic.performHapticFeedback(androidx.compose.ui.hapticfeedback.HapticFeedbackType.LongPress)
                     state = CalcEngine.onClear(state) 
                 }, contentDescription = "Clear")
-                RetroKey("±", onClick = { 
+                RetroOpKey("±", onClick = { 
                     haptic.performHapticFeedback(androidx.compose.ui.hapticfeedback.HapticFeedbackType.LongPress)
                     state = CalcEngine.onToggleSign(state) 
                 }, contentDescription = "Plus minus")
-                RetroKey("%", onClick = { 
+                RetroOpKey("%", onClick = { 
                     haptic.performHapticFeedback(androidx.compose.ui.hapticfeedback.HapticFeedbackType.LongPress)
                     state = CalcEngine.onPercent(state) 
                 }, contentDescription = "Percent")
