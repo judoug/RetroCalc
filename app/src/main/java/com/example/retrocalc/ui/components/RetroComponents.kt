@@ -173,11 +173,11 @@ fun RetroKey(
         Text(
             text = text,
             style = MaterialTheme.typography.headlineLarge.copy(
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.ExtraBold,
                 fontSize = 20.sp
             ),
             color = textDark,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.ExtraBold
         )
         
         // Focus ring - Quest optimized
@@ -257,11 +257,11 @@ fun RetroHighlightKey(
         Text(
             text = text,
             style = MaterialTheme.typography.headlineLarge.copy(
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.ExtraBold,
                 fontSize = 20.sp
             ),
             color = Color.White,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.ExtraBold
         )
         
         // Focus ring - Quest optimized
@@ -357,11 +357,11 @@ fun RetroOpKey(
         Text(
             text = text,
             style = MaterialTheme.typography.headlineLarge.copy(
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.ExtraBold,
                 fontSize = 20.sp
             ),
             color = Color.White,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.ExtraBold
         )
         
         // Focus ring - Quest optimized
@@ -452,11 +452,11 @@ fun WideRetroKey(
         Text(
             text = text,
             style = MaterialTheme.typography.headlineLarge.copy(
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.ExtraBold,
                 fontSize = 20.sp
             ),
             color = textDark,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.ExtraBold
         )
         
         // Focus ring - Quest optimized
