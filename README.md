@@ -15,7 +15,7 @@ A lightweight 2D calculator with a clean retro look and full Meta Quest compatib
 - **Portrait Layout** - Classic 5×4 keypad with wide 0 key
 - **Olive Display** - Vintage LCD-style display with tape text
 
-### 🧮 iOS-like Calculator Logic
+### 🧮 Calculator Logic
 - **Smart AC/C** - All Clear when pristine, Clear current entry when in use
 - **Percentage Calculations** - Context-aware percentage operations
 - **Repeated Equals** - Repeat last operation with last right operand
