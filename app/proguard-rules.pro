@@ -1,38 +1,80 @@
-# RetroCalc ProGuard Rules
+# Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
 
-# Keep Compose metadata and runtime
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
+
+# Keep Compose classes
 -keep class androidx.compose.** { *; }
 -keep class kotlin.Metadata { *; }
--keep class kotlinx.coroutines.** { *; }
 
-# Keep BigDecimal usage for calculator math
--keep class java.math.BigDecimal { *; }
--keep class java.math.MathContext { *; }
--keep class java.math.RoundingMode { *; }
+# Keep RetroCalc classes
+-keep class com.example.retrocalc.** { *; }
 
-# Keep calculator engine classes
--keep class com.example.retrocalc.CalcEngine { *; }
--keep class com.example.retrocalc.CalcState { *; }
--keep class com.example.retrocalc.Op { *; }
+# Keep enum classes
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
 
-# Keep MainActivity and UI components
--keep class com.example.retrocalc.MainActivity { *; }
--keep class com.example.retrocalc.CalculatorScreen { *; }
--keep class com.example.retrocalc.ui.components.** { *; }
+# Keep Parcelable implementations
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
 
-# Keep theme and color classes
--keep class com.example.retrocalc.ui.theme.** { *; }
+# Keep Serializable classes
+-keepnames class * implements java.io.Serializable
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
 
-# Remove debug information
--keepattributes SourceFile,LineNumberTable
--renamesourcefileattribute SourceFile
+# Keep native methods
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
 
-# Optimize for size
--optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
--optimizationpasses 5
--allowaccessmodification
--dontpreverify
+# Keep custom view constructors
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
 
-# Remove unused code
--dontwarn kotlinx.coroutines.**
--dontwarn androidx.compose.**
+# Keep R class
+-keep class **.R
+-keep class **.R$* {
+    <fields>;
+}
+
+# Remove logging in release builds
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static int v(...);
+    public static int i(...);
+    public static int w(...);
+    public static int d(...);
+    public static int e(...);
+}

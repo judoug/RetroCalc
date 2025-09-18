@@ -1,6 +1,16 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+}
+
+// Load keystore properties
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
 android {
@@ -20,10 +30,20 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../keystore/retrocalc-release-key.jks")
+            storePassword = keystoreProperties["KEYSTORE_PASSWORD"] as String? ?: ""
+            keyAlias = "retrocalc-key"
+            keyPassword = keystoreProperties["KEY_PASSWORD"] as String? ?: ""
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
             isShrinkResources = false
+            signingConfig = signingConfigs.getByName("release")
             ndk {
                 abiFilters += listOf("arm64-v8a")
             }
@@ -54,7 +74,7 @@ android {
     
     // Optimize for size - only include English resources
     defaultConfig {
-        resConfigs("en")
+        resourceConfigurations += "en"
     }
     
     packaging {
