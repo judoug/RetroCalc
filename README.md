@@ -1,6 +1,7 @@
 # RetroCalc 🧮
 
-A lightweight 2D calculator with a clean retro look and full Meta Quest compatibility.
+Retro Calculator for Horizon OS — your sleek, powerful companion for precise, lightning-fast calculations. Tap, type, swipe—then watch as your numbers come alive on a beautifully minimalist interface crafted just for Quest devices. Whether you're crunching numbers at work, school, or for play, Retro Calculator brings efficiency right where you need it. This sleek 2D panel app is built for lightning-fast calculations and multi-tasking .
+
 
 ![RetroCalc](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
