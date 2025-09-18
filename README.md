@@ -1,6 +1,6 @@
 # RetroCalc 🧮
 
-A lightweight, portrait 2D Android calculator with a clean retro look, iOS-like behavior, and full Meta Quest compatibility.
+A lightweight 2D calculator with a clean retro look and full Meta Quest compatibility.
 
 ![RetroCalc](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
