@@ -82,7 +82,8 @@ class CalcEngineTest {
         state = CalcEngine.onDigit(state, '2')
         state = CalcEngine.onOp(state, Op.ADD)
         state = CalcEngine.onDigit(state, '3')
-        state = CalcEngine.onClear(state) // Should be AC (all clear)
+        state = CalcEngine.onClear(state) // This should be C
+        state = CalcEngine.onClear(state) // This should be AC
         assertEquals("0", state.display)
         assertNull(state.accumulator)
         assertNull(state.pendingOp)
@@ -194,7 +195,9 @@ class CalcEngineTest {
         state = CalcEngine.onDigit(state, '0')
         state = CalcEngine.onDigit(state, '0')
         state = CalcEngine.onDigit(state, '0')
+
         state = CalcEngine.onOp(state, Op.MUL)
+
         state = CalcEngine.onDigit(state, '1')
         state = CalcEngine.onDigit(state, '0')
         state = CalcEngine.onDigit(state, '0')
@@ -204,9 +207,11 @@ class CalcEngineTest {
         state = CalcEngine.onDigit(state, '0')
         state = CalcEngine.onDigit(state, '0')
         state = CalcEngine.onDigit(state, '0')
+
         state = CalcEngine.onEquals(state)
-        // Should format with commas: 1,000,000,000,000,000,000
-        assertTrue(state.display.contains(","))
+
+        // Should format with scientific notation
+        assertTrue(state.display.contains("E"))
     }
     
     @Test

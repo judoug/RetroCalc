@@ -51,7 +51,7 @@ object CalcEngine {
     }
     
     fun onClear(state: CalcState): CalcState {
-        return if (state.accumulator != null || state.pendingOp != null || state.inTyping || state.error) {
+        return if (state.inTyping || state.display != "0") {
             // C - Clear current entry
             state.copy(
                 display = "0",
