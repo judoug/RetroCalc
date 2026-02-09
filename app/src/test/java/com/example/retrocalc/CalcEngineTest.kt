@@ -232,4 +232,85 @@ class CalcEngineTest {
         val tapeText = CalcEngine.getTapeText(state)
         assertNull(tapeText)
     }
+
+    @Test
+    fun `operation after equals with comma-formatted result`() {
+        // Reproduces the exact bug from the Quest Store review:
+        // 700 x 12 = 8400, then / 365 should give ~23.01, not 4380
+        var state = CalcState()
+        // 700 x 12 =
+        state = CalcEngine.onDigit(state, '7')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onOp(state, Op.MUL)
+        state = CalcEngine.onDigit(state, '1')
+        state = CalcEngine.onDigit(state, '2')
+        state = CalcEngine.onEquals(state)
+        assertEquals("8,400", state.display)
+
+        // / 365 =
+        state = CalcEngine.onOp(state, Op.DIV)
+        state = CalcEngine.onDigit(state, '3')
+        state = CalcEngine.onDigit(state, '6')
+        state = CalcEngine.onDigit(state, '5')
+        state = CalcEngine.onEquals(state)
+
+        // Should be ~23.01, definitely NOT 4380
+        val result = state.display.replace(",", "").toDouble()
+        assertEquals(23.01, result, 0.01)
+    }
+
+    @Test
+    fun `chained operations after equals`() {
+        var state = CalcState()
+        // 100 + 200 = 300
+        state = CalcEngine.onDigit(state, '1')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onOp(state, Op.ADD)
+        state = CalcEngine.onDigit(state, '2')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onEquals(state)
+        assertEquals("300", state.display)
+
+        // x 2 = 600
+        state = CalcEngine.onOp(state, Op.MUL)
+        state = CalcEngine.onDigit(state, '2')
+        state = CalcEngine.onEquals(state)
+        assertEquals("600", state.display)
+
+        // - 100 = 500
+        state = CalcEngine.onOp(state, Op.SUB)
+        state = CalcEngine.onDigit(state, '1')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onEquals(state)
+        assertEquals("500", state.display)
+    }
+
+    @Test
+    fun `operation after equals with large comma-formatted number`() {
+        var state = CalcState()
+        // 50000 + 50000 = 100,000
+        state = CalcEngine.onDigit(state, '5')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onOp(state, Op.ADD)
+        state = CalcEngine.onDigit(state, '5')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onDigit(state, '0')
+        state = CalcEngine.onEquals(state)
+        assertEquals("100,000", state.display)
+
+        // / 4 = 25,000
+        state = CalcEngine.onOp(state, Op.DIV)
+        state = CalcEngine.onDigit(state, '4')
+        state = CalcEngine.onEquals(state)
+        assertEquals("25,000", state.display)
+    }
 }

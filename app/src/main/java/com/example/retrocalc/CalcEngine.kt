@@ -65,12 +65,8 @@ object CalcEngine {
     
     fun onToggleSign(state: CalcState): CalcState {
         if (state.error) return state
-        
-        val current = try {
-            BigDecimal(state.display)
-        } catch (e: NumberFormatException) {
-            return state
-        }
+
+        val current = parseDisplay(state.display) ?: return state
         
         val newDisplay = if (current == BigDecimal.ZERO) {
             "0"
@@ -83,12 +79,8 @@ object CalcEngine {
     
     fun onPercent(state: CalcState): CalcState {
         if (state.error) return state
-        
-        val current = try {
-            BigDecimal(state.display)
-        } catch (e: NumberFormatException) {
-            return state
-        }
+
+        val current = parseDisplay(state.display) ?: return state
         
         return if (state.pendingOp != null && state.accumulator != null) {
             // If an operation is pending, treat current as percentage of accumulator
@@ -116,12 +108,8 @@ object CalcEngine {
     
     fun onOp(state: CalcState, op: Op): CalcState {
         if (state.error) return state
-        
-        val current = try {
-            BigDecimal(state.display)
-        } catch (e: NumberFormatException) {
-            return state
-        }
+
+        val current = parseDisplay(state.display) ?: return state
         
         return if (state.pendingOp != null && state.accumulator != null && state.inTyping) {
             // Evaluate pending operation first
@@ -148,12 +136,8 @@ object CalcEngine {
     
     fun onEquals(state: CalcState): CalcState {
         if (state.error) return state
-        
-        val current = try {
-            BigDecimal(state.display)
-        } catch (e: NumberFormatException) {
-            return state
-        }
+
+        val current = parseDisplay(state.display) ?: return state
         
         return if (state.pendingOp != null && state.accumulator != null) {
             // First equals - evaluate the operation
@@ -206,6 +190,14 @@ object CalcEngine {
         }
     }
     
+    private fun parseDisplay(display: String): BigDecimal? {
+        return try {
+            BigDecimal(display.replace(",", ""))
+        } catch (e: NumberFormatException) {
+            null
+        }
+    }
+
     private fun formatDisplay(value: BigDecimal): String {
         return try {
             // Handle very large or very small numbers
